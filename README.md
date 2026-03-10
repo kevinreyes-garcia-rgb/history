@@ -7,7 +7,7 @@ Hola esta es una historia random disfruten
 
 ---
 
->**NOTA** si alguien se ofende pues no me inporta es humor y diversoon 
+>**NOTA** si alguien se ofende pues no me inporta es humor y diversion.
 
 
 |💧Rol | 👤 Desarrollador |
