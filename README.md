@@ -3,7 +3,7 @@ Hola esta es una historia random disfruten
 ---
 
 ## Portada del Proyecto
-![Historia Cover](https://files.catbox.moe/2zx8t5.jpeg)
+![Historia Cover](https://files.catbox.moe/qg11vg.jpg)
 
 ---
 
