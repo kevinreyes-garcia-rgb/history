@@ -15,6 +15,7 @@ Hola esta es una historia random disfruten
 | **Lead Dev** | [Klee](https://github.com/kevinreyes-garcia-rgb/) |
 | **Desarrollador** | [LingKabuya](https://github.com/LingKabuya) |
 | **Desarrollador** | [Big-Koki](https://github.com/Big-koki) |
+| **Desarrolladora** | [Cuervita]() |
 
 ## 🛠️ Instalación y Uso
 
