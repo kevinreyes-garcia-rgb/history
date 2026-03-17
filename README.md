@@ -13,8 +13,8 @@ Hola esta es una historia random disfruten
 |💧Rol | 👤 Desarrollador |
 | :--- | :--- |
 | **Lead Dev** | [Klee](https://github.com/kevinreyes-garcia-rgb/) |
-| **Desarrollador** | [Antho](https://github.com/LingKabuya) |
-| **Desarrollador** | [Jovanny]() |
+| **Desarrollador** | [LingKabuya](https://github.com/LingKabuya) |
+| **Desarrollador** | [Big-Koki](https://github.com/Big-koki) |
 
 ## 🛠️ Instalación y Uso
 
