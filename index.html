@@ -2,15 +2,20 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frainys & Sezar: Operación Coralton</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Frainys & Sezar: Amor Eterno</title>
+    
+    <meta property="og:title" content="Frainys & Sezar: Operación Coralton">
+    <meta property="og:description" content="Una historia épica de amor y PVP en el océano.">
+    <meta property="og:image" content="https://files.catbox.moe/fc4tnd.jpg">
+
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00f2ff;
             --secondary: #ff007a;
             --bg-dark: #05050a;
-            --glass: rgba(15, 15, 25, 0.9);
+            --glass: rgba(15, 15, 25, 0.95);
         }
 
         body, html {
@@ -19,32 +24,35 @@
             background-color: var(--bg-dark);
             font-family: 'Rajdhani', sans-serif;
             overflow: hidden; color: white;
+            touch-action: manipulation; /* Evita zoom accidental en Android */
         }
 
-        /* --- SELECTOR DE MODO (ARRIBA) --- */
+        /* --- SELECTOR DE MODO --- */
         #mode-selector {
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             z-index: 200;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .mode-btn {
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             border: 1px solid var(--primary);
             color: var(--primary);
-            padding: 5px 12px;
+            padding: 6px 15px;
             cursor: pointer;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
-            transition: 0.3s;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
         .mode-btn.active {
             background: var(--primary);
             color: black;
+            box-shadow: 0 0 10px var(--primary);
         }
 
         /* --- PORTADA --- */
@@ -52,14 +60,14 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                         url('https://files.catbox.moe/fc4tnd.jpg') no-repeat center center;
             background-size: cover;
             z-index: 150;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         .btn-entrar {
@@ -68,15 +76,16 @@
             border: 2px solid var(--primary);
             color: var(--primary);
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            text-align: center;
         }
 
-        /* --- CONTENEDOR --- */
+        /* --- CONTENEDOR PRINCIPAL --- */
         #game-container {
             width: 100vw; height: 100vh;
-            background: linear-gradient(180deg, rgba(5,5,10,0.5) 0%, rgba(5,5,10,0.9) 100%), 
+            background: linear-gradient(180deg, rgba(5,5,10,0.6) 0%, rgba(5,5,10,1) 100%), 
                         url('https://files.catbox.moe/iui83w.jpeg');
             background-size: cover;
             background-position: center;
@@ -91,12 +100,14 @@
             width: 85%;
             max-width: 600px;
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border-left: 5px solid var(--secondary);
-            padding: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 35px;
             display: none;
             position: relative;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.5s ease-out;
+            box-sizing: border-box;
         }
 
         .text-box.active { display: block; }
@@ -105,53 +116,77 @@
             position: absolute;
             top: -15px; left: 20px;
             background: var(--secondary);
-            padding: 2px 15px;
+            padding: 4px 20px;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.8em;
+            letter-spacing: 1px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin: 0;
         }
 
         /* --- NAVEGACIÓN --- */
         .nav-controls {
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .control-btn {
-            padding: 12px 30px;
-            background: transparent;
+            padding: 14px 35px;
+            background: rgba(0,0,0,0.5);
             color: white;
             border: 1px solid var(--primary);
             font-family: 'Orbitron', sans-serif;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
+            min-width: 140px;
         }
 
-        .control-btn:hover {
+        .control-btn:hover:not(:disabled) {
             background: var(--primary);
             color: black;
             box-shadow: 0 0 15px var(--primary);
         }
 
         .control-btn:disabled {
-            border-color: #444;
-            color: #444;
+            border-color: #333;
+            color: #555;
             cursor: not-allowed;
+            opacity: 0.5;
         }
 
-        /* --- MODOS (PC vs ANDROID) --- */
-        body.mode-android .text-box { width: 90%; padding: 20px; }
-        body.mode-android p { font-size: 1.1rem; }
-        body.mode-android .control-btn { padding: 15px 20px; font-size: 0.8rem; }
+        /* --- MODO ANDROID --- */
+        body.mode-android .text-box { 
+            width: 92%; 
+            padding: 25px; 
+        }
+        body.mode-android p { 
+            font-size: 1.1rem; 
+        }
+        body.mode-android .nav-controls {
+            gap: 10px;
+            width: 92%;
+        }
+        body.mode-android .control-btn { 
+            padding: 15px 10px; 
+            font-size: 0.75rem;
+            min-width: 120px;
+            flex: 1;
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
             background-size: 100% 4px; pointer-events: none; z-index: 100;
         }
     </style>
@@ -161,8 +196,8 @@
     <div class="scanlines"></div>
 
     <div id="mode-selector">
-        <button class="mode-btn active" onclick="setMode('pc', this)">PC MODE</button>
-        <button class="mode-btn" onclick="setMode('android', this)">ANDROID</button>
+        <button class="mode-btn active" onclick="setMode('pc', this)">PC</button>
+        <button class="mode-btn" onclick="setMode('android', this)">Android</button>
     </div>
 
     <div id="portada" onclick="entrar()">
@@ -198,17 +233,12 @@
         }
 
         function actualizarNavegacion() {
-            // Ocultar todos
             for(let i=1; i<=total; i++) {
                 document.getElementById(`box-${i}`).classList.remove('active');
             }
-            // Mostrar actual
             document.getElementById(`box-${paso}`).classList.add('active');
             
-            // Bloquear botón atrás si estamos al inicio
             document.getElementById('prev-btn').disabled = (paso === 1);
-            
-            // Cambiar texto si es el final
             document.getElementById('next-btn').innerText = (paso === total) ? "REINICIAR" : "SIGUIENTE";
         }
 
