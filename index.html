@@ -3,224 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frainis & Sezar: Amor Eterno</title>
+    <title>Frainys & Sezar: Operación Coralton</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff007a;
+            --bg-dark: #05050a;
+            --glass: rgba(15, 15, 25, 0.9);
+        }
+
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #05050a;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            color: white;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-dark);
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden; color: white;
+        }
+
+        /* --- SELECTOR DE MODO (ARRIBA) --- */
+        #mode-selector {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 200;
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-btn {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 5px 12px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            transition: 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: black;
         }
 
         /* --- PORTADA --- */
         #portada {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://files.catbox.moe/fc4tnd.jpg') no-repeat center center;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://files.catbox.moe/fc4tnd.jpg') no-repeat center center;
             background-size: cover;
-            z-index: 100;
+            z-index: 150;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
-            cursor: pointer;
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        #portada::after {
-            content: "CLIC PARA ENTRAR AL CUENTO";
-            background: rgba(0, 0, 0, 0.7);
+        .btn-entrar {
             padding: 20px 40px;
-            border-radius: 10px;
-            border: 2px solid #ff79c6;
-            font-weight: bold;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
             letter-spacing: 3px;
-            animation: pulse 2s infinite;
-            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--primary);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 121, 198, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0); }
-        }
-
-        /* --- FONDO DEL JUEGO --- */
+        /* --- CONTENEDOR --- */
         #game-container {
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            width: 100vw; height: 100vh;
+            background: linear-gradient(180deg, rgba(5,5,10,0.5) 0%, rgba(5,5,10,0.9) 100%), 
                         url('https://files.catbox.moe/iui83w.jpeg');
             background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            padding-bottom: 60px;
         }
 
-        /* --- CUADROS DE TEXTO --- */
+        /* --- CUADRO DE TEXTO --- */
         .text-box {
             width: 85%;
-            max-width: 700px;
-            background: rgba(15, 15, 25, 0.9);
-            border: 3px solid #ff79c6;
-            border-radius: 20px;
+            max-width: 600px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-left: 5px solid var(--secondary);
             padding: 30px;
-            box-shadow: 0 0 30px rgba(255, 121, 198, 0.2);
-            min-height: 150px;
             display: none;
-            animation: slideIn 0.4s ease-out;
             position: relative;
+            animation: fadeIn 0.4s ease;
         }
 
-        .text-box.active {
-            display: block;
-        }
+        .text-box.active { display: block; }
 
         .char-name {
             position: absolute;
-            top: -20px;
-            left: 30px;
-            background: #ff79c6;
-            padding: 5px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.1em;
+            top: -15px; left: 20px;
+            background: var(--secondary);
+            padding: 2px 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
         }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-top: 10px;
+        /* --- NAVEGACIÓN --- */
+        .nav-controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
         }
 
-        #next-btn {
-            margin-top: 25px;
-            padding: 15px 50px;
-            background: #6272a4;
+        .control-btn {
+            padding: 12px 30px;
+            background: transparent;
             color: white;
-            border: none;
-            border-radius: 50px;
+            border: 1px solid var(--primary);
+            font-family: 'Orbitron', sans-serif;
             cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
             transition: 0.3s;
-            text-transform: uppercase;
-            z-index: 10;
         }
 
-        #next-btn:hover {
-            background: #ff79c6;
-            transform: scale(1.1);
+        .control-btn:hover {
+            background: var(--primary);
+            color: black;
+            box-shadow: 0 0 15px var(--primary);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
+        .control-btn:disabled {
+            border-color: #444;
+            color: #444;
+            cursor: not-allowed;
+        }
+
+        /* --- MODOS (PC vs ANDROID) --- */
+        body.mode-android .text-box { width: 90%; padding: 20px; }
+        body.mode-android p { font-size: 1.1rem; }
+        body.mode-android .control-btn { padding: 15px 20px; font-size: 0.8rem; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px; pointer-events: none; z-index: 100;
         }
     </style>
 </head>
-<body>
+<body class="mode-pc">
 
-    <div id="portada" onclick="entrar()"></div>
+    <div class="scanlines"></div>
+
+    <div id="mode-selector">
+        <button class="mode-btn active" onclick="setMode('pc', this)">PC MODE</button>
+        <button class="mode-btn" onclick="setMode('android', this)">ANDROID</button>
+    </div>
+
+    <div id="portada" onclick="entrar()">
+        <div class="btn-entrar">INICIAR HISTORIA</div>
+    </div>
 
     <div id="game-container">
-        
-        <div class="text-box active" id="box-1">
-            <div class="char-name">Narrador</div>
-            <p>En el vibrante mundo de Coralton, el amor entre <b>Frainnys la pinguina</b> y <b>Cesar la concha</b> desafiaba todas las leyes de la naturaleza. Eran luz pura.</p>
-        </div>
+        <div class="text-box active" id="box-1"><div class="char-name">Narrador</div><p>En el vibrante mundo de <b>Coralton</b>, el amor entre <b>Frainnys</b> y <b>Cesar</b> desafiaba la naturaleza.</p></div>
+        <div class="text-box" id="box-2"><div class="char-name">Tragedia</div><p>Pero el destino es cruel. La vida de Frainis se apagó como una estrella fugaz.</p></div>
+        <div class="text-box" id="box-3"><div class="char-name">Sezar</div><p>"No puedo vivir sin tu risa". Sezar decidió cruzar el umbral.</p></div>
+        <div class="text-box" id="box-4"><div class="char-name">Final Eterno</div><p>Sus almas se han encontrado en el reino eterno. Nada los separará.</p></div>
+        <div class="text-box" id="box-5"><div class="char-name">Sistema</div><p>¡Prepárate! El capítulo de acción comienza ahora...</p></div>
+        <div class="text-box" id="box-6"><div class="char-name">Cap 2 - El Reto</div><p>¡Poseidón aparece con doble cañón! La concha saca su Revolver 64.</p></div>
+        <div class="text-box" id="box-7"><div class="char-name">Cap 2 - Humillación</div><p>¡No puso pared agachada! Poseidón tira emotiza tóxica.</p></div>
+        <div class="text-box" id="box-8"><div class="char-name">Cap 2 - Venganza</div><p>La pingüina lanza un pescado gigante, pero Poseidón pone pared gloo.</p></div>
+        <div class="text-box" id="box-9"><div class="char-name">Cap 2 - Double Kill</div><p>Poseidón pega -500. ¡Double Kill e insignia de veterano!</p></div>
+        <div class="text-box" id="box-10"><div class="char-name">Capítulo 3</div><p>¡El regreso! La batalla final por el honor de Coralton.</p></div>
+        <div class="text-box" id="box-11"><div class="char-name">Cap 3 - El Regreso</div><p>Revivieron con una M1014. Cesar pega un -500 y Frainnys un -499. ¡A uno de vida!</p></div>
+        <div class="text-box" id="box-12"><div class="char-name">Cap 3 - Final</div><p><b>VICTORY ROYALE</b>. Poseidón se retira humillado. La paz vuelve al mar.</p></div>
 
-        <div class="text-box" id="box-2">
-            <div class="char-name">Tragedia</div>
-            <p>Pero el destino es un autor cruel. Un día, sin previo aviso, la vida de Frainis se apagó como una estrella fugaz, dejando a Sezar en una oscuridad absoluta.</p>
+        <div class="nav-controls">
+            <button id="prev-btn" class="control-btn" onclick="atras()" disabled>ATRÁS</button>
+            <button id="next-btn" class="control-btn" onclick="siguiente()">SIGUIENTE</button>
         </div>
-
-        <div class="text-box" id="box-3">
-            <div class="char-name">Sezar</div>
-            <p>"No puedo vivir en un mundo donde no escuche tu risa, Frainis". Con esa promesa, Sezar decidió cruzar el umbral que los separaba.</p>
-        </div>
-
-        <div class="text-box" id="box-4">
-            <div class="char-name">Final Eterno</div>
-            <p>Ahora, más allá del mar y del tiempo, sus almas finalmente se han encontrado. En ese reino eterno, ya nada podrá volver a separarlos.</p>
-        </div>
-
-        <div class="text-box" id="box-5">
-            <div class="char-name">Segunda Parte</div>
-            <p>Pero ojo, que se viene más arte. Prepárate para la acción...</p>
-        </div>
-        
-        <div class="text-box" id="box-6">
-            <div class="char-name">Cap 2 - El Reto</div>
-            <p>De la nada llega Poseidón a hacer PVP con la concha. Poseidón viene con escopeta de doble cañón y la concha con un Revolver 64.</p>
-        </div>
-
-        <div class="text-box" id="box-7">
-            <div class="char-name">Cap 2 - Humillación</div>
-            <p>La concha pierde porque no puso pared agachada. Poseidón le hizo una emotiza insana re tóxica y la concha le dice: "¡Elimínate loco, te creo sala, salte!"</p>
-        </div>
-
-        <div class="text-box" id="box-8">
-            <div class="char-name">Cap 2 - Venganza</div>
-            <p>A la pingüina le da depresión nivel celestial y le lanza un pescado gigante, pero Poseidón sí pone pared gloo.</p>
-        </div>
-
-        <div class="text-box" id="box-9">
-            <div class="char-name">Cap 2 - Double Kill</div>
-            <p>Poseidón le pega su -500 a la pingüina y se hace un double kill con su respectiva emotiza insana.</p>
-        </div>
-
-        <div class="text-box" id="box-10">
-            <div class="char-name">Capítulo 3</div>
-            <p>¡El regreso de los dioses! La batalla final comienza ahora.</p>
-        </div>
-
-        <div class="text-box" id="box-11">
-            <div class="char-name">Cap 3 - El Regreso</div>
-            <p>Luego de la humillada de Poseidón, Cesar y Frainnys revivieron y se pusieron pilas. Compraron una M1014 y entre los dos empezaron a dar cañonazos. Cesar sacó los poderes y le dio un -500 a Poseidón; Frainnys le atinó un -499. ¡El pejesapo quedó a 1 de vida!</p>
-        </div>
-               
-        <div class="text-box" id="box-12">
-            <div class="char-name">Cap 3 - Final</div>
-            <p><b>VICTORY ROYALE</b>. El pescado retrocedió con una voltereta olímpica 360 y la paz volvió al océano.</p>
-        </div>
-        
-        <button id="next-btn" onclick="siguiente()">Siguiente Parte</button>
     </div>
 
     <script>
         let paso = 1;
-        // El total ahora es 12 porque corregí los IDs duplicados
-        const total = 12; 
+        const total = 12;
 
         function entrar() {
-            document.getElementById('portada').style.transform = 'translateX(100%)';
+            document.getElementById('portada').style.transform = 'translateY(-100%)';
+        }
+
+        function actualizarNavegacion() {
+            // Ocultar todos
+            for(let i=1; i<=total; i++) {
+                document.getElementById(`box-${i}`).classList.remove('active');
+            }
+            // Mostrar actual
+            document.getElementById(`box-${paso}`).classList.add('active');
+            
+            // Bloquear botón atrás si estamos al inicio
+            document.getElementById('prev-btn').disabled = (paso === 1);
+            
+            // Cambiar texto si es el final
+            document.getElementById('next-btn').innerText = (paso === total) ? "REINICIAR" : "SIGUIENTE";
         }
 
         function siguiente() {
-            // Ocultar actual
-            document.getElementById(`box-${paso}`).classList.remove('active');
-            
-            paso++;
-            
-            // Reiniciar si llega al final
-            if (paso > total) {
+            if (paso < total) {
+                paso++;
+            } else {
                 paso = 1;
             }
-            
-            // Mostrar siguiente
-            document.getElementById(`box-${paso}`).classList.add('active');
+            actualizarNavegacion();
+        }
+
+        function atras() {
+            if (paso > 1) {
+                paso--;
+                actualizarNavegacion();
+            }
+        }
+
+        function setMode(mode, btn) {
+            document.body.className = 'mode-' + mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
     </script>
-
 </body>
 </html>
