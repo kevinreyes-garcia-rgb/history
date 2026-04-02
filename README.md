@@ -24,9 +24,14 @@ Si quieres leer la historia solo copia el link de abajo y acsede a el con google
 Y si quieres ver otras paginas de este canal todo pobre ve a tu derecha y dale al perfil del canal y ahi otras 
 paginas muy interesantes :>
 
-1. **Clonar el repositorio:**
-   ```bash
-   https://kevinreyes-garcia-rgb.github.io/history-4/
+<details>
+   <summary>Instalacion</summary>
 
-[Link](https://kevinreyes-garcia-rgb.github.io/history-4/
-)
+[Link Directo](https://kevinreyes-garcia-rgb.github.io/history-4/)
+
+link copiable 
+```
+https://kevinreyes-garcia-rgb.github.io/history-4/
+```
+   
+</details>
